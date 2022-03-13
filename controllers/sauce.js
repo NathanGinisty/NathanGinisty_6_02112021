@@ -1,3 +1,5 @@
+// https://developer.mozilla.org/en-US/docs/Web/API/Sanitizer/sanitize
+
 const fs = require('fs')
 
 const Sauce = require('../models/sauce')
@@ -42,6 +44,8 @@ exports.modifySauce = (req, res, next) => {
 }
 
 // *** DELETE -> /api/sauces/:id
+// vérifier si l'ID de la sauce est la même que celui du propriétaire ---------------------------------------------------- <!>
+// Vérifier si l'image a bien été supprimé ------------------------------------------------------------------------------- <!>
 exports.deleteSauce = (req, res, next) => {
     Sauce.findOne({ _id: req.params.id })
         .then(sauce => {
