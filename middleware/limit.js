@@ -1,9 +1,9 @@
 const rateLimit = require("express-rate-limit")
 
 const limiter = rateLimit({
-    windowMs: 5 * 60 * 1000,
-    max: 3,
-    message: "Trop de tentatives de connexion. Compte bloqué pour 5 minutes"
+    windowMs: 2 * 60 * 1000,
+    max: 4,
+    message: "Too many tries, account blocked for 2 minutes."
 })
 
 module.exports = { limiter }
