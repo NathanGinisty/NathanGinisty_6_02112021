@@ -2,6 +2,10 @@
 // https://en.wikipedia.org/wiki/List_of_HTTP_status_codes
 // https://www.npmjs.com/package/jsonwebtoken
 
+// https://www.npmjs.com/package/email-validator --------------------------- <!>
+// https://www.npmjs.com/package/password-validator
+
+
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 

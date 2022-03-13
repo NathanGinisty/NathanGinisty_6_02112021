@@ -12,11 +12,12 @@ const userRoutes = require('./routes/user')
 const app = express()
 app.use(helmet())
 
-mongoose.connect('mongodb+srv://nginisty:123@cluster0.insup.mongodb.net/myFirstDatabase?retryWrites=true&w=majority',
-{ useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true})
-.then(() => console.log('Connexion à MongoDB réussie !'))
-.catch(() => console.log('Connexion à MongoDB échouée !'))
-
+let connection = 'mongodb+srv://nginisty:123@cluster0.insup.mongodb.net/myFirstDatabase?retryWrites=true&w=majority';
+mongoose.connect(connection,
+  { useNewUrlParser: true,
+    useUnifiedTopology: true })
+  .then(() => console.log('Connexion à MongoDB réussie !'))
+  .catch(() => console.log('Connexion à MongoDB échouée !'));
 
 app.use((req, res, next) => {
   res.setHeader('Access-Control-Allow-Origin', '*')
@@ -25,9 +26,8 @@ app.use((req, res, next) => {
   next()
 })
 
-// app.use(bodyParser.json())
-
-// app.use('/images', express.static(path.join(__dirname, 'images')))
+app.use(bodyParser.json())
+app.use('/images', express.static(path.join(__dirname, 'images')))
 
 app.use('/api/sauces', sauceRoutes)
 app.use('/api/auth', userRoutes)
