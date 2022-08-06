@@ -16,7 +16,7 @@ let connection = 'mongodb+srv://nginisty:123@cluster0.insup.mongodb.net/myFirstD
 mongoose.connect(connection,
   { useNewUrlParser: true,
     useUnifiedTopology: true })
-  .then(() => console.log('Connection to MongoDB is succesful !'))
+  .then(() => console.log('Connection to MongoDB is successful !'))
   .catch(() => console.log('Connection to MongoDB failed !'));
 
 app.use((req, res, next) => {

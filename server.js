@@ -12,7 +12,9 @@ const normalizePort = val => {
     }
     return false
 }
-const port = normalizePort(process.env.PORT || '3000')
+
+const port = normalizePort(process.env.PORT || '4200')  // 4200 for mac; 3000 for pc
+//const port = normalizePort('3000') // 4200 for mac; 3000 for pc
 app.set('port', port)
 
 const errorHandler = error => {
@@ -30,6 +32,9 @@ const errorHandler = error => {
             console.error(bind + ' is already in use.')
             process.exit(1)
             break
+
+
+            
         default:
             throw error
     }
