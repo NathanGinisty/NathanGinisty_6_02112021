@@ -13,7 +13,7 @@ const normalizePort = val => {
     return false
 }
 
-const port = normalizePort(process.env.PORT || '4200')  // 4200 for mac; 3000 for pc
+const port = normalizePort(process.env.PORT || '3000')  // 4200 for mac; 3000 for pc
 //const port = normalizePort('3000') // 4200 for mac; 3000 for pc
 app.set('port', port)
 
