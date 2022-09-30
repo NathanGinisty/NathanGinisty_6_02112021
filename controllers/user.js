@@ -12,7 +12,7 @@ const jwt = require('jsonwebtoken')
 const User = require('../models/User');
 
 // *** POST -> /api/auth/signup
-exports.signup = (req, res, next) => {
+exports.signup = (req, res) => {
     bcrypt.hash(req.body.password, 10)
     .then(hash => {
         const user = new User({
@@ -28,7 +28,7 @@ exports.signup = (req, res, next) => {
 
 
 // *** POST -> /api/auth/login
-exports.login = (req, res, next) => {
+exports.login = (req, res) => {
     User.findOne({ email: req.body.email })
     .then(user => {
         if (!user) {
