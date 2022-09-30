@@ -44,14 +44,12 @@ exports.modifySauce = (req, res, next) => {
 }
 
 // *** DELETE -> /api/sauces/:id
-// vérifier si l'ID de la sauce est la même que celui du propriétaire ---------------------------------------------------- <!>
-// Vérifier si l'image a bien été supprimé ------------------------------------------------------------------------------- <!>
 exports.deleteSauce = (req, res, next) => {
     Sauce.findOne({ _id: req.params.id })
         .then(sauce => {
             const filename = sauce.imageUrl.split('/images/')[1]
             fs.unlink(`images/${filename}`, () => { Sauce.deleteOne({ _id: req.params.id })
-                .then(() => res.status(200).json({ message: 'Removed sauce!' }))
+                .then(() => res.status(204).json({ message: 'Removed sauce!' }))
                 .catch(error => res.status(400).json({ error: error }))
             })
 
@@ -63,22 +61,22 @@ exports.deleteSauce = (req, res, next) => {
 exports.likeOrNot = (req, res, next) => {
     if (req.body.like === 1) {
         Sauce.updateOne({ _id: req.params.id }, { $inc: { likes: req.body.like++ }, $push: { usersLiked: req.body.userId } })
-            .then((sauce) => res.status(200).json({ message: 'Liked' }))
+            .then((sauce) => res.status(200).json({ message: 'Liked!' }))
             .catch(error => res.status(400).json({ error }))
     } else if (req.body.like === -1) {
         Sauce.updateOne({ _id: req.params.id }, { $inc: { dislikes: req.body.like-- }, $push: { usersDisliked: req.body.userId } })
-            .then((sauce) => res.status(200).json({ message: 'Disliked' }))
+            .then((sauce) => res.status(200).json({ message: 'Disliked!' }))
             .catch(error => res.status(400).json({ error }))
     } else {
         Sauce.findOne({ _id: req.params.id })
             .then(sauce => {
                 if (sauce.usersLiked.includes(req.body.userId)) {
                     Sauce.updateOne({ _id: req.params.id }, { $pull: { usersLiked: req.body.userId }, $inc: { likes: -1 } })
-                        .then((sauce) => { res.status(200).json({ message: 'Like removed' }) })
+                        .then((sauce) => { res.status(200).json({ message: 'Like removed!' }) })
                         .catch(error => res.status(400).json({ error }))
                 } else if (sauce.usersDisliked.includes(req.body.userId)) {
                     Sauce.updateOne({ _id: req.params.id }, { $pull: { usersDisliked: req.body.userId }, $inc: { dislikes: +1 } })
-                        .then((sauce) => { res.status(200).json({ message: 'Dislike removed' }) })
+                        .then((sauce) => { res.status(200).json({ message: 'Dislike removed!' }) })
                         .catch(error => res.status(400).json({ error }))
                 }
             })
